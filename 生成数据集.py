@@ -19,8 +19,8 @@ df1 = pd.DataFrame(points1, columns=['x', 'y'])
 df2 = pd.DataFrame(points2, columns=['x', 'y'])
 
 # 添加 'category' 列，并赋值为 1 和 2
-df1['category'] = 1
-df2['category'] = 2
+df1['category'] = 0
+df2['category'] = 1
 
 # 引入噪声，修改部分点的 'category' 并添加 'noise' 列
 a = 5
@@ -28,12 +28,12 @@ b = 5
 
 # 对 p_category=1 的点进行修改
 mask1 = np.random.choice([True, False], size=size, p=[a/100, 1-a/100])
-df1.loc[mask1, 'category'] = 2
+df1.loc[mask1, 'category'] = 1
 df1['noise'] = np.where(mask1, 1, 0)
 
 # 对 p_category=2 的点进行修改
 mask2 = np.random.choice([True, False], size=size, p=[b/100, 1-b/100])
-df2.loc[mask2, 'category'] = 1
+df2.loc[mask2, 'category'] = 0
 df2['noise'] = np.where(mask2, 1, 0)
 
 # 合并两个DataFrame
@@ -49,23 +49,23 @@ import matplotlib.pyplot as plt
 plt.figure(figsize=(10, 8))
 
 # noise=1, category=1 涂红色
-plt.scatter(dataset[(dataset['noise'] == 1) & (dataset['category'] == 1)]['x'],
-            dataset[(dataset['noise'] == 1) & (dataset['category'] == 1)]['y'],
+plt.scatter(dataset[(dataset['noise'] == 1) & (dataset['category'] == 0)]['x'],
+            dataset[(dataset['noise'] == 1) & (dataset['category'] == 0)]['y'],
             c='blue', label='Noise=1, Category=1')
 
 # noise=1, category=2 涂蓝色
-plt.scatter(dataset[(dataset['noise'] == 1) & (dataset['category'] == 2)]['x'],
-            dataset[(dataset['noise'] == 1) & (dataset['category'] == 2)]['y'],
+plt.scatter(dataset[(dataset['noise'] == 1) & (dataset['category'] == 1)]['x'],
+            dataset[(dataset['noise'] == 1) & (dataset['category'] == 1)]['y'],
             c='red', label='Noise=1, Category=2')
 
 # noise=0, category=1 涂蓝色
-plt.scatter(dataset[(dataset['noise'] == 0) & (dataset['category'] == 1)]['x'],
-            dataset[(dataset['noise'] == 0) & (dataset['category'] == 1)]['y'],
+plt.scatter(dataset[(dataset['noise'] == 0) & (dataset['category'] == 0)]['x'],
+            dataset[(dataset['noise'] == 0) & (dataset['category'] == 0)]['y'],
             c='blue', marker='x', label='Noise=0, Category=1')
 
 # noise=0, category=2 涂红色
-plt.scatter(dataset[(dataset['noise'] == 0) & (dataset['category'] == 2)]['x'],
-            dataset[(dataset['noise'] == 0) & (dataset['category'] == 2)]['y'],
+plt.scatter(dataset[(dataset['noise'] == 0) & (dataset['category'] == 1)]['x'],
+            dataset[(dataset['noise'] == 0) & (dataset['category'] == 1)]['y'],
             c='red', marker='x', label='Noise=0, Category=2')
 
 # 设置图例和标签
