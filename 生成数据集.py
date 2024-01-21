@@ -51,12 +51,12 @@ plt.figure(figsize=(10, 8))
 # noise=1, category=1 涂红色
 plt.scatter(dataset[(dataset['noise'] == 1) & (dataset['category'] == 1)]['x'],
             dataset[(dataset['noise'] == 1) & (dataset['category'] == 1)]['y'],
-            c='red', label='Noise=1, Category=1')
+            c='blue', label='Noise=1, Category=1')
 
 # noise=1, category=2 涂蓝色
 plt.scatter(dataset[(dataset['noise'] == 1) & (dataset['category'] == 2)]['x'],
             dataset[(dataset['noise'] == 1) & (dataset['category'] == 2)]['y'],
-            c='blue', label='Noise=1, Category=2')
+            c='red', label='Noise=1, Category=2')
 
 # noise=0, category=1 涂蓝色
 plt.scatter(dataset[(dataset['noise'] == 0) & (dataset['category'] == 1)]['x'],
